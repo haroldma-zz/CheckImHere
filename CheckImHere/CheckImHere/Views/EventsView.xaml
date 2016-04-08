@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<mvvm:BaseView xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:mvvm="clr-namespace:XLabs.Forms.Mvvm;assembly=XLabs.Forms"
+               xmlns:converters="clr-namespace:CheckImHere.Converters;assembly=CheckImHere"
+               x:Class="CheckImHere.Views.EventsView"
+               Title="{Binding Portal.PageHeaderText}"
+               BackgroundColor="#E3E3E3">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Organizations" Order="Secondary" Clicked="Organizations_OnClicked" />
+        <ToolbarItem Text="Tags" Order="Secondary" Clicked="Tags_OnClicked" />
+    </ContentPage.ToolbarItems>
+    <Grid x:Name="RootGrid">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <converters:EventPhotoLinkConverter x:Key="EventPhotoLinkConverter" />
+            </ResourceDictionary>
+        </Grid.Resources>
+        <ListView ItemsSource="{Binding Events}" RowHeight="270" SeparatorVisibility="None" ItemSelected="ListView_OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid Padding="15">
+                                <Frame BackgroundColor="White" HasShadow="True" Padding="-2">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="129" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Aspect="AspectFill"
+                                               Source="{Binding PhotoLink, Converter={StaticResource EventPhotoLinkConverter}}" />
+                                        <StackLayout Grid.Row="1" Padding="10">
+                                            <Label Text="{Binding Name}" FontSize="18" />
+                                            <Label Text="{Binding OrganizationName}" />
+                                            <Label Text="{Binding Location}" />
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </Grid>
+</mvvm:BaseView>
