@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Android.OS;
 using Autofac;
-using CheckImHere.Modules;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XLabs.Ioc;
@@ -36,9 +35,6 @@ namespace CheckImHere.Droid
             var builder = new ContainerBuilder();
 
             builder.Register(c => AndroidDevice.CurrentDevice).As<IDevice>();
-
-            builder.RegisterModule<ServiceModule>();
-            builder.RegisterModule<ViewModelModule>();
 
             Resolver.SetResolver(new AutofacResolver(builder.Build()));
         }

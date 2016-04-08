@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using CheckImHere.Modules;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
@@ -10,7 +9,7 @@ using XLabs.Platform.Device;
 
 namespace CheckImHere.iOS
 {
-	[Register("AppDelegate")]
+    [Register("AppDelegate")]
     public class AppDelegate : XFormsApplicationDelegate
     {
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
@@ -32,9 +31,6 @@ namespace CheckImHere.iOS
             var builder = new ContainerBuilder();
 
             builder.Register(c => AppleDevice.CurrentDevice).As<IDevice>();
-
-            builder.RegisterModule<ServiceModule>();
-            builder.RegisterModule<ViewModelModule>();
 
             Resolver.SetResolver(new AutofacResolver(builder.Build()));
         }
