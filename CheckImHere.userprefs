@@ -1,4 +1,4 @@
-﻿<Properties StartupItem="CheckImHere\CheckImHere.Droid\CheckImHere.Droid.csproj">
+﻿<Properties StartupItem="CheckImHere/CheckImHere.iOS/CheckImHere.iOS.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.169.254.247.95:5555" />
   <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

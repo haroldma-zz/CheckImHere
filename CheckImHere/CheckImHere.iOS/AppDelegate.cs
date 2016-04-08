@@ -10,6 +10,7 @@ using XLabs.Platform.Device;
 
 namespace CheckImHere.iOS
 {
+	[Register("AppDelegate")]
     public class AppDelegate : XFormsApplicationDelegate
     {
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
