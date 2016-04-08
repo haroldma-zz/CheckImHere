@@ -24,19 +24,23 @@ namespace CheckImHere.Views
             var stack = new StackLayout();
             foreach (var organization in vm.Organizations)
             {
-                var checkbox = new CheckBox
+				var checkbox = new Switch
                 {
-                    DefaultText = organization.Key,
-                    Checked = organization.Value
+					IsToggled = organization.Value
                 };
 
-                checkbox.CheckedChanged += (o, args) =>
+				checkbox.Toggled += (o, args) =>
                     {
                         vm.Organizations[organization.Key] = !vm.Organizations[organization.Key];
                         vm.RefreshFilters();
                     };
-                stack.Children.Add(checkbox);
+
+				stack.Children.Add(new StackLayout{
+					Orientation = StackOrientation.Horizontal,
+					Children = { checkbox, new Label { Text = organization.Key } }
+				});
             }
+
             ShowPopup(stack);
         }
 
@@ -65,10 +69,10 @@ namespace CheckImHere.Views
             };
 
             var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += (s, e) => { RootGrid.Children.Remove(popup); };
+            tapGestureRecognizer.Tapped += (s, e) => RootGrid.Children.Remove(popup);
             popup.GestureRecognizers.Add(tapGestureRecognizer);
 
-            RootGrid.Children.Add(popup);
+			RootGrid.Children.Add(popup);
         }
 
         private void Tags_OnClicked(object sender, EventArgs e)
@@ -76,21 +80,24 @@ namespace CheckImHere.Views
             var vm = (EventsViewModel)BindingContext;
 
             var stack = new StackLayout();
-            foreach (var tag in vm.Tags)
-            {
-                var checkbox = new CheckBox
-                {
-                    DefaultText = tag.Key,
-                    Checked = tag.Value
-                };
+			foreach (var tag in vm.Tags)
+			{
+				var checkbox = new Switch
+				{
+					IsToggled = tag.Value
+				};
 
-                checkbox.CheckedChanged += (o, args) =>
-                {
-                    vm.Tags[tag.Key] = !vm.Tags[tag.Key];
-                    vm.RefreshFilters();
-                };
-                stack.Children.Add(checkbox);
-            }
+				checkbox.Toggled += (o, args) =>
+				{
+					vm.Tags[tag.Key] = !vm.Tags[tag.Key];
+					vm.RefreshFilters();
+				};
+
+				stack.Children.Add(new StackLayout{
+					Orientation = StackOrientation.Horizontal,
+					Children = { checkbox, new Label { Text = tag.Key } }
+				});
+			}
             ShowPopup(stack);
         }
     }

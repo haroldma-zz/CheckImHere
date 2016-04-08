@@ -12,7 +12,11 @@ namespace CheckImHere
             ViewFactory.Register<EventsView, EventsViewModel>();
 
             var page = ViewFactory.CreatePage<EventsViewModel, EventsView>();
-            MainPage = new NavigationPage((Page)page);
+            MainPage = new NavigationPage((Page)page)
+			{
+				BarBackgroundColor = Color.FromHex("#05b4de"),
+				BarTextColor = Color.White
+			};
         }
 
         protected override void OnResume()
